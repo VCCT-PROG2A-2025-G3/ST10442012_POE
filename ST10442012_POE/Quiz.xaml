@@ -1,0 +1,69 @@
+﻿<Window x:Class="ST10442012_POE.Quiz"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Cybersecurity Quiz" Height="600" Width="400" WindowStartupLocation="CenterScreen" Background="White" ResizeMode="NoResize">
+    <Grid>
+        <StackPanel Margin="20,30,20,56" VerticalAlignment="Top" x:Name="QuizPanel">
+            <!-- Question -->
+            <TextBlock x:Name="QuestionText" Text="Question will appear here" 
+                       FontWeight="Bold" FontSize="16" TextWrapping="Wrap" TextAlignment="Center" Margin="0,0,0,20"/>
+            <!-- Answers -->
+            <RadioButton x:Name="OptionA" GroupName="QuizOptions" Content="A" Height="40" Margin="0,5" FontSize="14"/>
+            <RadioButton x:Name="OptionB" GroupName="QuizOptions" Content="B" Height="40" Margin="0,5" FontSize="14"/>
+            <RadioButton x:Name="OptionC" GroupName="QuizOptions" Content="C" Height="40" Margin="0,5" FontSize="14"/>
+            <RadioButton x:Name="OptionD" GroupName="QuizOptions" Content="D" Height="40" Margin="0,5" FontSize="14"/>
+            <!-- Submit -->
+            <Button x:Name="SubmitButton" Content="Submit Answer" Height="40" Margin="0,20,0,0" FontSize="16" Background="Black" Foreground="White" BorderThickness="0" Click="SubmitButton_Click"/>
+            <!-- Feedback -->
+            <TextBlock x:Name="FeedbackText" Text="" FontSize="14" TextWrapping="Wrap" TextAlignment="Center" Margin="0,10,0,0" Foreground="Green"/>
+            <!-- Score (hidden until end) -->
+            <TextBlock x:Name="ScoreText" Text="" FontSize="16" FontWeight="Bold" TextAlignment="Center" Margin="0,20,0,0" Visibility="Collapsed"/>
+            <!-- Redo Quiz Button (Initially Hidden) -->
+            <Button x:Name="RedoButton"
+        Content="Redo Quiz"
+        Height="40"
+        Margin="0,10,0,0"
+        FontSize="16"
+        Background="DarkRed"
+        Foreground="White"
+        BorderThickness="0"
+        Visibility="Collapsed"
+        Click="RedoButton_Click"/>
+        </StackPanel>
+        <!-- Bottom Navigation Bar -->
+        <DockPanel VerticalAlignment="Bottom" Height="56" Background="White" LastChildFill="False">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Width="300">
+                <Button Width="60" Background="Transparent" BorderThickness="0" Click="HomeButton_Click">
+                    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <Image Source="home.png" Width="24" Height="24" HorizontalAlignment="Center"/>
+                        <TextBlock Text="Home" FontSize="10" HorizontalAlignment="Center"/>
+                    </StackPanel>
+                </Button>
+                <Button Width="60" Background="Transparent" BorderThickness="0" Click="ChatBotButton_Click">
+                    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <Image Source="chatbot.png" Width="24" Height="24" HorizontalAlignment="Center"/>
+                        <TextBlock Text="Chatbot" FontSize="10" HorizontalAlignment="Center"/>
+                    </StackPanel>
+                </Button>
+                <Button Width="60" Background="Transparent" BorderThickness="0" Click="TasksButton_Click">
+                    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <Image Source="tasks.png" Width="24" Height="24" HorizontalAlignment="Center"/>
+                        <TextBlock Text="Tasks" FontSize="10" HorizontalAlignment="Center"/>
+                    </StackPanel>
+                </Button>
+                <Button Width="60" Background="Transparent" BorderThickness="0" Click="QuizButton_Click">
+                    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <Image Source="quiz.png" Width="24" Height="24" HorizontalAlignment="Center"/>
+                        <TextBlock Text="Quiz" FontSize="10" HorizontalAlignment="Center"/>
+                    </StackPanel>
+                </Button>
+                <Button Width="60" Background="Transparent" BorderThickness="0" Click="ActivityLogButton_Click">
+                    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <Image Source="activitylog.png" Width="24" Height="24" HorizontalAlignment="Center"/>
+                        <TextBlock Text="Activity Log" FontSize="10" HorizontalAlignment="Center"/>
+                    </StackPanel>
+                </Button>
+            </StackPanel>
+        </DockPanel>
+    </Grid>
+</Window>
