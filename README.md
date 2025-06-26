@@ -1,4 +1,4 @@
-----------|| CYBERSECURITY AWARENESS ChatBot APPLICATION ||---------
+----------|| CYBERSECURITY AWARENESS CHATBOT APPLICATION ||---------
 
 -------|| Overview ||---------
 
