@@ -14,6 +14,14 @@ namespace ST10442012_POE
         private string userSkillLevel = "";
         private string favoriteTopic = "";
 
+
+        public void SetFavoriteTopic(string topic)
+        {
+            if (!string.IsNullOrWhiteSpace(topic))
+                favoriteTopic = topic;
+        }
+
+
         private int lastResponseIndex = -1;
         private List<string> lastResponses = null;
 
@@ -533,65 +541,201 @@ namespace ST10442012_POE
             }
         ),
                 #endregion
-                // ----------|| Common Basic Questions ||----------
+              // ----------|| Common Basic Questions ||----------
 
-                #region COMMON BASIC QUESTIONS AND RESPONSES
-                (
-            new[] { "how are you","how are you doing ", "whats up","wagwaan"  },
-            new List<string>
-            {
-                "I'm doing great, thank you for asking! How can I assist you today?",
-                "I'm here and ready to help you with your cybersecurity questions.",
-                "All systems are running smoothly! What would you like to know?"
-            }
-        ),
-        (
-            new[] { "how can you help me ", "how does this work", "what can you do", "what do you do" ,"what questions can i ask you "},
-            new List<string>
-            {
-                "I can help you understand cybersecurity, avoid scams, create strong passwords, and stay safe online.",
-                "Ask me anything about online safety, passwords, phishing, or privacy.",
-                "I'm here to answer your cybersecurity questions and provide helpful tips."
-            }
-        ),
-        (
-            new[] { "be secure online", "how do I stay safe online", "internet safety", "stay safe online" },
-            new List<string>
-            {
-                "Use strong passwords, enable 2FA, avoid phishing links, don’t overshare online, and keep your devices updated.",
-                "Always be cautious with emails and links, and keep your software up to date."
-            }
-        ),
-        (
-            new[] { "signs of being hacked", "was I hacked", "how do I know if I was hacked" },
-            new List<string>
-            {
-                "Signs include unexpected logins, password reset emails you didn’t request, unknown apps, or slow device performance.",
-                "If you notice suspicious activity, change your passwords immediately and run a security scan."
-            }
-        ),
-        (
-            new[] { "are you human", "are you a real person", "who are you" },
-            new List<string>
-            {
-                "I’m CyboSecureBot — a smart digital assistant built to help you understand and protect yourself in the digital world.",
-                "I'm an AI chatbot designed to help you with cybersecurity questions."
-            }
-        ),
-        (
-            new[] {"are you real", "trust you", "is this legit", "are you safe" },
-            new List<string>
-            {
-                "Yes! I'm designed to provide trusted cybersecurity advice. But always double-check online info—being cautious is smart!",
-                "You can trust my advice, but always use your best judgment online."
-            }
-        ),
-                #endregion
+#region COMMON BASIC QUESTIONS AND RESPONSES
+(
+    new[] { "how are you", "how are you doing", "whats up", "wagwaan" },
+    new List<string>
+    {
+        "I'm doing great, thank you for asking! How can I assist you today?",
+        "I'm here and ready to help you with your cybersecurity questions.",
+        "All systems are running smoothly! What would you like to know?"
+    }
+),
+(
+    new[] { "how can you help me", "how does this work", "what can you do", "what do you do", "what questions can i ask you" },
+    new List<string>
+    {
+        "I can help you understand cybersecurity, avoid scams, create strong passwords, and stay safe online.",
+        "Ask me anything about online safety, passwords, phishing, or privacy.",
+        "I'm here to answer your cybersecurity questions and provide helpful tips."
+    }
+),
+(
+    new[] { "be secure online", "how do I stay safe online", "internet safety", "stay safe online" },
+    new List<string>
+    {
+        "Use strong passwords, enable 2FA, avoid phishing links, don’t overshare online, and keep your devices updated.",
+        "Always be cautious with emails and links, and keep your software up to date."
+    }
+),
+(
+    new[] { "signs of being hacked", "was I hacked", "how do I know if I was hacked" },
+    new List<string>
+    {
+        "Signs include unexpected logins, password reset emails you didn’t request, unknown apps, or slow device performance.",
+        "If you notice suspicious activity, change your passwords immediately and run a security scan."
+    }
+),
+(
+    new[] { "are you human", "are you a real person", "who are you" },
+    new List<string>
+    {
+        "I’m CyboSecureBot — a smart digital assistant built to help you understand and protect yourself in the digital world.",
+        "I'm an AI chatbot designed to help you with cybersecurity questions."
+    }
+),
+(
+    new[] { "are you real", "trust you", "is this legit", "are you safe" },
+    new List<string>
+    {
+        "Yes! I'm designed to provide trusted cybersecurity advice. But always double-check online info—being cautious is smart!",
+        "You can trust my advice, but always use your best judgment online."
+    }
+),
+#endregion // COMMON BASIC QUESTIONS
 
-                // ----------|| Miscellaneous ||---------
+
+                
+
+
+            // ----------|| Social Engineering ||----------
+
+        #region SOCIAL ENGINEERING QUESTIONS AND RESPONSES
+        (
+            new[] { "what is social engineering", "define social engineering", "social engineering meaning", "explain social engineering" },
+            new List<string>
+            {
+                "Social engineering is a technique attackers use to trick people into giving away confidential information.",
+                "It's all about manipulating human psychology instead of hacking technology.",
+                "Common examples include phishing, pretexting, and baiting."
+            }
+        ),
+        (
+            new[] { "how to recognize social engineering", "social engineering signs", "detect social engineering attack" },
+            new List<string>
+            {
+                "Be cautious if someone pressures you for sensitive info or creates a false sense of urgency.",
+                "Verify identities before sharing any personal or company data.",
+                "Watch out for unusual requests or unexpected communications."
+            }
+        ),
+        (
+            new[] { "examples of social engineering", "social engineering types", "types of social engineering attacks" },
+            new List<string>
+            {
+                "Examples include phishing emails, phone scams pretending to be IT support, and fake websites.",
+                "Other types are baiting (offering freebies to get info) and tailgating (following someone into restricted areas)."
+            }
+        ),
+        (
+            new[] { "how to protect against social engineering", "prevent social engineering", "social engineering protection tips" },
+            new List<string>
+            {
+                "Always verify the identity of anyone asking for sensitive info.",
+                "Never share passwords or private data over phone or email unless you initiated the contact.",
+                "Be skeptical of urgent or unusual requests and report suspicious activity."
+            }
+        ),
+        #endregion // SOCIAL ENGINEERING
+
+
+      // ----------|| Data Privacy & Protection ||----------
+
+        #region DATA PRIVACY AND PROTECTION QUESTIONS AND RESPONSES
+        (
+            new[] { "what is data privacy", "define data privacy", "data privacy meaning" },
+            new List<string>
+            {
+                "Data privacy means protecting personal information from unauthorized access or use.",
+                "It ensures your personal data stays confidential and is handled responsibly."
+            }
+        ),
+        (
+            new[] { "how to protect personal data", "protect my data", "data protection tips" },
+            new List<string>
+            {
+                "Use strong passwords and enable two-factor authentication wherever possible.",
+                "Be careful what personal info you share online and regularly review privacy settings on social media.",
+                "Keep your software up to date and use security tools to protect your devices."
+            }
+        ),
+        (
+            new[] { "what are privacy laws", "privacy regulations", "data protection laws" },
+            new List<string>
+            {
+                "Privacy laws like GDPR (Europe) and POPIA (South Africa) regulate how personal data must be collected, stored, and used.",
+                "These laws help protect individuals' rights and increase transparency from organizations."
+            }
+        ),
+        (
+            new[] { "how to know if my data is safe", "is my data protected", "check data privacy" },
+            new List<string>
+            {
+                "Look for websites that use HTTPS and have clear privacy policies.",
+                "Avoid sharing sensitive data on suspicious or untrusted websites.",
+                "Use privacy-focused browsers and tools to limit data tracking."
+            }
+        ),
+        #endregion 
+
+        
+
+       // ----------|| Mobile Security ||----------
+
+            #region MOBILE SECURITY QUESTIONS AND RESPONSES
+            (
+                new[] { "how to keep my smartphone safe", "mobile security tips", "secure mobile phone" },
+                new List<string>
+                {
+                    "Keep your phone’s software up to date to fix security vulnerabilities.",
+                    "Only download apps from official app stores like Google Play or Apple App Store.",
+                    "Use screen locks, strong passwords, or biometric security like fingerprint or face recognition.",
+                    "Regularly back up your data to prevent loss in case of device issues."
+                }
+            ),
+            (
+                new[] { "mobile malware", "what is mobile malware", "mobile virus" },
+                new List<string>
+                {
+                    "Mobile malware is malicious software designed to harm your smartphone or steal data.",
+                    "It can come from suspicious apps, links, or emails. Always be cautious about what you download or click."
+                }
+            ),
+            (
+                new[] { "how to avoid mobile scams", "mobile phishing", "mobile scam prevention" },
+                new List<string>
+                {
+                    "Don’t click links in suspicious texts or emails on your phone.",
+                    "Verify caller identity before sharing personal info over phone.",
+                    "Use security apps to scan for threats and avoid public Wi-Fi without VPN."
+                }
+            ),
+            (
+                new[] { "is public wifi safe on mobile", "using wifi on phone safe", "public wifi risks on mobile" },
+                new List<string>
+                {
+                    "Public Wi-Fi can be risky for your phone because attackers might intercept your data.",
+                    "Use a VPN and avoid logging into sensitive accounts when on public Wi-Fi.",
+                    "Disable automatic connections to unknown Wi-Fi networks for extra safety."
+                }
+            ),
+            #endregion // MOBILE SECURITY
+
+
+
+            // ----------|| Miscellaneous ||---------
 
                 #region Miscellaneous QUESTIONS AND RESPONSES 
                         (
+                    new[] { "your name", "who are you", "who is this" },
+                    new List<string>
+                    {
+                        "I am CyboSecureBot — your friendly cybersecurity assistant, created to help keep you safe online."
+                    }
+                ),
+                    (
                     new[] { "time", "what time is it" },
                     new List<string>
                     {
@@ -612,13 +756,7 @@ namespace ST10442012_POE
                         $"It's {DateTime.Now:MMMM}"
                     }
                 ),
-                (
-                    new[] { "your name", "who are you", "who is this" },
-                    new List<string>
-                    {
-                        "I am CyboSecureBot — your friendly cybersecurity assistant, created to help keep you safe online."
-                    }
-                ),
+                
                 (
                     new[] { "ask you ","help", "what can I ask", "what questions can i ask you about", "what should I ask", "give me ideas on what i must ask you about" },
                     new List<string>
@@ -633,8 +771,9 @@ namespace ST10442012_POE
                     {
                         "I was created by Kaveer Lala, a second-year student at Varsity College in Cape Town."
                     }
-                )
+                ),
         #endregion
+
             
     };
 
@@ -649,7 +788,7 @@ namespace ST10442012_POE
 
         public string GetInitialGreeting()
         {
-            return "Hello! I am the Cybersecurity Awareness Chatbot. To exit at any time, simply type 'exit' or 'bye'.\n\nLet's begin! What is your name?";
+            return "Hello! I am the Cybersecurity Awareness Chatbot. To exit at any time, simply type 'exit'.\n\nLet's begin! What is your name?";
         }
 
         public bool IsValidName(string input)
@@ -688,28 +827,51 @@ namespace ST10442012_POE
             return "Please enter either Beginner, Intermediate, or Advanced.";
         }
 
-        public string ValidateFavoriteTopic(string input, out string topic)
+        public string ValidateFavoriteTopic(string input, out string topic, string userName)
         {
             topic = "";
-            var allowedTopics = new[] { "passwords", "phishing", "malware", "safe browsing" };
+            var allowedTopics = new[]
+            {
+        "passwords",
+        "phishing",
+        "malware",
+        "safe browsing",
+        "social engineering",
+        "data privacy",
+        "mobile security"
+    };
+
             if (string.IsNullOrWhiteSpace(input))
                 return "Topic cannot be empty.";
 
-            if (input.Trim().ToLower() == "exit")
-                return $"Goodbye {userName}! Hope to chat again soon.";
+            if (input.Trim().Equals("exit", StringComparison.OrdinalIgnoreCase))
+                return "Type 'exit' again if you'd like to leave the chat.";
 
             foreach (var t in allowedTopics)
             {
                 if (input.Equals(t, StringComparison.OrdinalIgnoreCase))
                 {
-                    favoriteTopic = t;
                     topic = t;
-                    return $"Awesome! I'll remember that you're interested in {favoriteTopic}. You can ask any questions on cybersecurity now.";
+
+                    // Use topic variable here, not favoriteTopic (which is undefined)
+                    string[] topicResponses = {
+                $"Awesome! I'll remember that you're interested in {topic}. You can ask any questions on cybersecurity now.",
+                $"Great! {topic} is such an important topic — You can ask any questions on cybersecurity now.",
+                $"Cool! Let's dive deeper into {topic} whenever you're ready. You can ask any questions on cybersecurity now.",
+                $"Perfect choice, {userName}! I'm ready to talk about {topic} anytime. You can ask any questions on cybersecurity now."
+            };
+
+                    var random = new Random();
+                    return topicResponses[random.Next(topicResponses.Length)];
                 }
             }
 
-            return "Please enter one of the suggested topics: Passwords, Phishing, Malware or Safe Browsing.";
+            return "Please enter one of the suggested topics: Passwords, Phishing, Malware, Safe Browsing, Social Engineering, Data Privacy, or Mobile Security.";
         }
+
+
+     
+
 
         public string HandleUserInput(string rawInput)
         {
@@ -748,6 +910,12 @@ namespace ST10442012_POE
                     Speak(response);
                     return response;
                 }
+
+
+
+
+
+
 
                 // Keyword Matching
                 foreach (var entry in keywordResponses)
@@ -830,37 +998,29 @@ namespace ST10442012_POE
             input = SanitizeInput(input);
             keyword = SanitizeInput(keyword);
 
-            // 1. Direct match
-            if (input.Contains(keyword))
-                return true;
-
-            // 2. Token match
             var inputTokens = Tokenize(input);
             var keywordTokens = Tokenize(keyword);
 
-            if (keywordTokens.All(kw => inputTokens.Contains(kw)))
+            if (input.Equals(keyword, StringComparison.OrdinalIgnoreCase) ||
+           input.Contains(" " + keyword + " ") ||
+           input.StartsWith(keyword + " ") ||
+           input.EndsWith(" " + keyword))
                 return true;
 
-            // 3. Synonym expansion match
+
+            // ✅ Synonym match (also exact tokens only)
             if (synonymDictionary.TryGetValue(keyword, out var synonyms))
             {
                 foreach (var synonym in synonyms)
                 {
-                    string syn = SanitizeInput(synonym);
-                    var synTokens = Tokenize(syn);
-
-                    if (synTokens.All(t => inputTokens.Contains(t)))
-                        return true;
-
-                    if (input.Contains(syn))
+                    var synTokens = Tokenize(SanitizeInput(synonym));
+                    if (synTokens.All(st => inputTokens.Contains(st)))
                         return true;
                 }
             }
 
-            // 4. Fuzzy match (Levenshtein Distance)
-            // We'll check if any token in input is close enough to keyword or its synonyms
-            int maxDistance = 2; // tolerance level for typos
-
+            // ✅ Optional: typo tolerance (Levenshtein distance)
+            int maxDistance = 2;
             foreach (var token in inputTokens)
             {
                 if (LevenshteinDistance(token, keyword) <= maxDistance)
@@ -878,6 +1038,7 @@ namespace ST10442012_POE
 
             return false;
         }
+
 
 
 

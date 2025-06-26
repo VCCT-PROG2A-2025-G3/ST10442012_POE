@@ -31,8 +31,8 @@
         Click="RedoButton_Click"/>
         </StackPanel>
         <!-- Bottom Navigation Bar -->
-        <DockPanel VerticalAlignment="Bottom" Height="56" Background="White" LastChildFill="False">
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Width="300">
+        <Border Grid.Row="1" Background="White" Height="56" VerticalAlignment="Bottom">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
                 <Button Width="60" Background="Transparent" BorderThickness="0" Click="HomeButton_Click">
                     <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
                         <Image Source="home.png" Width="24" Height="24" HorizontalAlignment="Center"/>
@@ -64,6 +64,7 @@
                     </StackPanel>
                 </Button>
             </StackPanel>
-        </DockPanel>
+        </Border>
+
     </Grid>
 </Window>

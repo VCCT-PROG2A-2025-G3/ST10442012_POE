@@ -15,5 +15,6 @@ namespace ST10442012_POE
         public HorizontalAlignment Alignment { get; set; } // Align left or right for UI
         public Brush BackgroundColor { get; set; }
         public Brush ForegroundColor { get; set; }
+
     }
 }

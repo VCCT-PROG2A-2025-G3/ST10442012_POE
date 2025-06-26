@@ -145,8 +145,5 @@
   <ItemGroup>
     <Resource Include="activitylog.png" />
   </ItemGroup>
-  <ItemGroup>
-    <Content Include="audio\StartAudio.wav" />
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

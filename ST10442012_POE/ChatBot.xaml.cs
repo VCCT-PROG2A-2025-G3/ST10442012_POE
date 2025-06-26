@@ -79,24 +79,35 @@ namespace ST10442012_POE
                     await SpeakAndType(response);
                     AppendThinking();
                     await Task.Delay(800);
-                    response = "What is your favorite cybersecurity topic? (Passwords, Phishing, Malware, or Safe Browsing):";
+                    response = "What is your favorite cybersecurity topic? (Passwords, Phishing, Malware, Safe Browsing, Social Engineering, Mobile Security, or Data Privacy):";
+
 
                     ActivityLog.AddLog("Conversation", $"User: {userInput} | Bot: {response}");
                 }
             }
             else if (string.IsNullOrEmpty(favoriteTopic))
             {
-                response = chatbot.ValidateFavoriteTopic(userInput, out favoriteTopic);
-                if (!string.IsNullOrEmpty(favoriteTopic))
+                string topicResponse = chatbot.ValidateFavoriteTopic(userInput, out string validTopic, userName);
+
+
+                if (!string.IsNullOrEmpty(validTopic))
                 {
-                    RemoveThinking();
-                    await SpeakAndType(response);
+                    favoriteTopic = validTopic; // Only set this once!
+                }
+                chatbot.SetFavoriteTopic(favoriteTopic);
+
+
+                RemoveThinking();
+                await SpeakAndType(topicResponse);
+
+                if (!string.IsNullOrEmpty(validTopic))
+                {
                     AppendThinking();
                     await Task.Delay(800);
-
-                    ActivityLog.AddLog("Conversation", $"User: {userInput} | Bot: {response}");
+                    ActivityLog.AddLog("Conversation", $"User: {userInput} | Bot: {topicResponse}");
                 }
             }
+
             else
             {
                 response = chatbot.HandleUserInput(userInput);
@@ -107,20 +118,24 @@ namespace ST10442012_POE
             await SpeakAndType(response);
         }
 
-
         private void AppendMessage(string sender, string message)
         {
+            bool isUser = sender != "CyboSecureBot";
+
             Messages.Add(new ChatMessage
             {
                 Sender = sender,
                 Message = message,
-                IsUser = sender != "CyboSecureBot",
-                Alignment = sender != "CyboSecureBot" ? HorizontalAlignment.Right : HorizontalAlignment.Left,
-                BackgroundColor = sender != "CyboSecureBot" ? "#DCF8C6" : "#ECECEC",
-                ForegroundColor = "#000000"
+                IsUser = isUser,
+                Alignment = isUser ? HorizontalAlignment.Right : HorizontalAlignment.Left,
+                BackgroundColor = isUser ? "#000000" : "#ECECEC", // black for user, light gray for bot
+                ForegroundColor = isUser ? "#FFFFFF" : "#000000"  // white text for user, black text for bot
             });
+
             ScrollToBottom();
         }
+
+
 
         private void AppendThinking()
         {
@@ -145,9 +160,19 @@ namespace ST10442012_POE
         }
         private async Task SpeakAndType(string message)
         {
-            synthesizer.SpeakAsync(message); // Use SpeakAsync instead of Task.Run + Speak()
+            // 🔒 Disable UI input during bot response
+            SendButton.IsEnabled = false;
+            UserInputTextBox.IsEnabled = false;
+
+            synthesizer.SpeakAsync(message);
             await TypeEffect("CyboSecureBot", message);
+
+            // ✅ Re-enable UI after bot is done
+            SendButton.IsEnabled = true;
+            UserInputTextBox.IsEnabled = true;
+            UserInputTextBox.Focus(); // puts cursor back
         }
+
 
 
         private async Task TypeEffect(string sender, string fullMessage)
@@ -182,7 +207,7 @@ namespace ST10442012_POE
 
                 ChatMessagesList.Items.Refresh();
                 ScrollToBottom();
-                await Task.Delay(40); // SLOWER typing effect for better sync
+                await Task.Delay(60); // SLOWER typing effect for better sync
             }
         }
 
