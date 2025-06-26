@@ -1,123 +1,149 @@
-||-------Cybersecurity Awareness  Chatbot  Application-------||
+----------|| CYBERSECURITY AWARENESS APPLICATION ||---------
 
-Project Overview
-This project is a comprehensive Windows desktop application developed using WPF (Windows Presentation Foundation) aimed at improving users' cybersecurity awareness. The application offers interactive components such as a Cybersecurity Quiz, Task Manager, Chatbot, and Activity Log to educate users on important cybersecurity concepts while helping them stay organized and engaged.
+-------|| Overview ||---------
 
-Important:
-Parts 1 and 2 of this project were originally implemented as console-based applications, focusing on foundational cybersecurity awareness tasks and chatbot logic. This final version integrates those functionalities into a rich graphical interface for improved usability and interaction.
+This Cybersecurity Awareness Application is a Windows desktop program built with WPF, designed to educate users on cybersecurity topics through interactive features. It integrates a Chatbot, Cybersecurity Quiz, Task Manager, and an Activity Log to promote better online safety habits.
 
-The Chatbot incorporates basic Natural Language Processing (NLP) features, including keyword matching, synonym recognition, typo tolerance, clarification detection, and sentiment analysis. These features enable the chatbot to better understand user input nuances and respond more naturally and accurately to cybersecurity-related queries.
+Parts 1 and 2 of this project were originally developed as console-based applications, focusing on chatbot interaction and quiz functionality. These console apps included NLP features such as keyword detection, synonym handling, typo tolerance, and sentiment detection.
 
-||-------Key Features-------||
+This final version merges those components into a cohesive graphical user interface with improved usability and expanded capabilities.
 
-1. Cybersecurity Quiz
-A randomized quiz with 15 multiple-choice questions selected from a larger question pool.
+The chatbot, in particular, leverages Natural Language Processing (NLP) techniques and sentiment analysis to provide personalized, context-aware cybersecurity advice.
 
-Immediate feedback on answers, including explanations.
+Developed by Kaveer Lala as part of PROG6221 POE .
 
-Score tracking with performance messages.
+-------|| Features ||---------
 
-Option to retake the quiz with a fresh set of questions.
+Interactive Chatbot: Provides detailed cybersecurity information and guidance, using NLP to understand user input better.
 
-2. Task Manager
-Add, view, mark as completed, and delete cybersecurity-related tasks.
+Sentiment Detection: Recognizes emotional tones such as confusion or worry to respond supportively.
 
-Optional reminders for tasks using date pickers.
+Clarification Handling: Detects when users ask for more information and offers follow-up explanations.
 
-Dynamic task list updates using data binding.
+User Personalization: Remembers user details like name, skill level, and favorite topics for a tailored experience.
 
-Activity logging for all task actions.
+Cybersecurity Quiz: Randomized 15-question multiple-choice quiz with immediate feedback and scoring.
 
-3. Chatbot
-Interactive chatbot focused on cybersecurity topics.
+Task Manager: Allows adding, completing, and deleting tasks with optional reminders to encourage safe cybersecurity habits.
 
-Keyword and synonym-based question detection.
+Activity Log: Chronological record of user actions within the app for review and audit purposes.
 
-Typo tolerance for common misspellings.
+Speech Synthesis & Audio: The chatbot can speak responses aloud, enhancing accessibility.
 
-Clarification detection to refine user queries.
+Visual Enhancements: ASCII art in chatbot console parts, WPF UI with intuitive layout and navigation.
 
-Sentiment detection to recognize user tone and adjust responses.
+Navigation Bar: Consistent bottom bar linking Home, Chatbot, Tasks, Quiz, and Activity Log for seamless user movement.
 
-Speech synthesis features for accessibility and engagement.
+-------|| Project Structure ||---------
 
-Provides educational responses on phishing, malware, password security, social engineering, mobile security, data privacy, and more.
+Chatbot Module (Originally Console-Based)
 
-4. Activity Log
-Chronological record of user activities across the app.
+Implements NLP features including keyword matching, typo tolerance, synonym detection, sentiment, and clarification detection.
 
-Entries include timestamps, action types, and detailed descriptions.
+Provides interactive Q&A with multimedia (audio greetings, ASCII art) in early console versions.
 
-Supports incremental loading (“Show More”) for easier navigation.
+Migrated to WPF with speech synthesis and UI enhancements.
 
-Provides audit trail for tasks, quiz attempts, and chatbot interactions.
+Quiz Module
 
-5. Intuitive Navigation
-Consistent bottom navigation bar throughout the app for quick access to Home, Chatbot, Tasks, Quiz, and Activity Log.
+Multiple-choice cybersecurity quiz with randomized questions from a larger pool.
 
-Clean, fixed-size windows with a consistent white background and easy-to-read fonts.
+Immediate answer validation, feedback, scoring, and retake option.
 
-||-------Technical Details-------||
+Task Manager
 
-Developed in C# using WPF for the graphical user interface.
+Create, view, update, and delete cybersecurity-related tasks.
 
-Implements ObservableCollection for dynamic data binding in task and activity logs.
+Optional reminder dates and status tracking.
 
-Uses a custom QuizQuestion class to manage quiz content.
+Activity Log
 
-Activity logging is centralized with a static class accessible from any part of the application.
+Tracks all user actions (chatbot queries, quiz attempts, task changes) with timestamps and details.
 
-Chatbot uses a combination of keyword lists, NLP techniques including sentiment detection, typo tolerance, and clarification logic to understand and respond to user inputs.
+Supports incremental loading (“Show More”) for usability.
 
-Asynchronous UI updates using timers to handle quiz feedback delays.
+Navigation & Main UI
 
-||-------Getting Started-------||
+Consistent layout with a clean white background and fixed window size for all modules.
 
-Prerequisites
-Windows OS with .NET Framework (version 4.7.2 or later recommended)
+Bottom navigation bar allows quick switching between features.
 
-Visual Studio (for building and running the project)
+-------|| How It Works ||---------
 
-Running the Application
+Startup
+Loads the main window with navigation bar. The user selects Chatbot, Quiz, Tasks, or Activity Log.
+
+Chatbot Interaction
+User inputs cybersecurity-related questions or comments. NLP and sentiment analysis process input to generate personalized responses. Speech synthesis optionally reads answers aloud.
+
+Quiz
+Presents questions one-by-one with multiple choice answers. Provides immediate feedback and tallies score. Displays performance summary after completion.
+
+Task Management
+Users add tasks with optional reminder dates. Tasks can be marked complete or deleted. All changes are logged.
+
+Activity Logging
+All significant user actions are recorded with timestamps, action types, and details. Users can browse the log and load more entries as needed.
+
+-------|| Installation and Setup ||---------
+
+Requirements:
+
+Windows OS
+
+.NET Framework 4.7.2 or higher
+
+Visual Studio 2022 (recommended)
+
+Setup Steps:
+
 Clone or download the project repository.
 
-Open the solution file (.sln) in Visual Studio.
+Open the solution file (.sln) in Visual Studio 2022.
 
-Build the solution to restore dependencies and compile the code.
+Restore NuGet packages if necessary.
 
-Run the project; the Home window will appear first.
+Build the solution to compile.
 
-Use the navigation bar to explore features: Quiz, Tasks, Chatbot, Activity Log.
+Run the application; the Home screen will launch first.
 
-||-------Usage Notes-------||
+Navigate through features using the bottom navigation bar.
 
-In the Quiz, answer by selecting the correct option and clicking “Submit Answer.” Feedback will show before advancing.
+-------|| Key Functional Highlights ||---------
 
-In Tasks, you can add new cybersecurity tasks, optionally set reminders, mark tasks completed, or delete them.
+Console-based origins with expanded GUI integration.
 
-The Chatbot answers cybersecurity-related queries and provides explanations using advanced NLP techniques including sentiment detection.
+Advanced NLP with typo tolerance, synonym recognition, clarification handling.
 
-The Activity Log tracks all significant user actions for review.
+Sentiment detection for empathetic chatbot responses.
 
-The “Show More” button in the Activity Log loads additional entries in increments of 10.
+Multimedia enhancements: ASCII art, audio greetings, text-to-speech.
 
-||-------Future Improvements-------||
+Dynamic data binding for tasks and activity logs.
 
-Enhance NLP with machine learning for more natural conversations.
+Randomized quiz questions with feedback and retake option.
 
-Add user authentication for personalized task and quiz tracking.
+Activity logging for audit and review of user interactions.
 
-Implement data persistence for tasks and activity logs between sessions.
+-------|| Future Enhancements ||---------
 
-Integrate multimedia tutorials or videos within the app.
+Integrate machine learning-based NLP for more natural chatbot conversations.
 
-Add localization support for multiple languages.
+Add user login and profile management for personalized experience and data persistence.
 
-||-------Author Information-------||
+Implement persistent storage for tasks, logs, and quiz history using a database.
+
+Develop multilingual support for wider accessibility.
+
+Include multimedia tutorials and cybersecurity resources within the app.
+
+-------|| Author ||---------
 
 Kaveer Lala
-Student Number: ST10442012
-Email: st10442012@vcconnect.edu.za
+Student Number: ST0442012
+Email: ST10442012@vcconnect.edu.za
+Institution: Varsity College, Cape Town
 
-Cybersecurity Awareness Chatbot  Application 
+-------|| License ||---------
 
+For educational purposes only. All rights reserved.
