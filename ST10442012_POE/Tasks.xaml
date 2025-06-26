@@ -1,4 +1,22 @@
-﻿<Window x:Class="ST10442012_POE.Tasks"
+﻿<!--
+// 
+// Tasks.xaml
+//
+// This WPF window provides a user interface for managing cybersecurity-related tasks.
+// Users can add new tasks with titles, descriptions, and optional reminder dates.
+// The tasks are displayed in a list showing their title, description, reminder, and completion status.
+// Users can mark tasks as completed or delete them.
+// A navigation bar at the bottom allows quick access to other sections of the application,
+// including Home, Chatbot, Quiz, and Activity Log.
+//
+// Designed to help users organize and track cybersecurity tasks efficiently.
+// 
+-->
+
+
+
+
+<Window x:Class="ST10442012_POE.Tasks"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Task Assistant" Height="550" Width="850"

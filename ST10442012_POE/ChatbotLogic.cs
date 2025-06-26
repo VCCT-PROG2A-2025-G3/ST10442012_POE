@@ -5,45 +5,97 @@ using System.Speech.Synthesis;
 using System.Text;
 using System.Threading.Tasks;
 
+
+//--------------------------------|| Description ||---------------------------------
+
+/// ChatbotLogic is the main class responsible for driving the Cybersecurity Awareness Chatbot.
+/// It processes user input, detects intent using keyword-based NLP, and provides spoken and textual responses
+/// tailored to cybersecurity education.
+///
+/// Key Features:
+/// - Handles conversation flow (name input, skill level, topic selection, Q&A).
+/// - Responds to cybersecurity topics like phishing, social engineering, safe browsing, and more.
+/// - Uses basic Natural Language Processing techniques:
+///   • Input sanitization and tokenization for text normalization.
+///   • Synonym matching via a configurable dictionary for broader intent coverage.
+///   • Typo tolerance using Levenshtein Distance for fuzzy keyword recognition.
+///   • Clarification handling to provide varied follow-up answers.
+/// - Incorporates speech synthesis via System.Speech.Synthesis for accessibility.
+/// - Tracks user-specific context (name, skill level, interest) to personalize responses.
+///
+/// This class enables an interactive and informative experience aimed at improving user cybersecurity awareness.
+
+
+
+
+
+
+
 namespace ST10442012_POE
 {
     public class ChatbotLogic
     {
         // ---|| Fields ||---
+
+        // Stores the user's name
         private string userName = "";
+
+        // Stores the user's skill level (beginner, intermediate, advanced)
         private string userSkillLevel = "";
+
+        // Stores the user's favorite cybersecurity topic
         private string favoriteTopic = "";
 
-
+        // <summary>
+        // Sets the user's favorite topic if the input is not null or whitespace.
+        // This helps personalize future chatbot responses.
+        // </summary>
         public void SetFavoriteTopic(string topic)
         {
             if (!string.IsNullOrWhiteSpace(topic))
                 favoriteTopic = topic;
         }
 
-
+        // Index of the last response given, used to avoid repeating the same response consecutively
         private int lastResponseIndex = -1;
+
+        // Stores the list of possible responses from the last matched keyword group
         private List<string> lastResponses = null;
 
+        // Random number generator used for selecting varied responses
         private readonly Random rand = new Random();
 
+
+        // <summary>
+        // A dictionary mapping common user emotions (detected through keywords)
+        // to personalized response templates that include the user's name.
+     
+        // NLP Feature: Sentiment-based response generation.
+        // This enables the chatbot to provide empathetic and context-aware replies
+        // when users express emotions like fear, confusion, or frustration.
+        
         private readonly Dictionary<string, string> sentimentTemplates = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
-{
-    { "worried", "It's completely understandable to feel that way, {0}. Scammers can be very convincing. Let me share some tips to help you stay safe." },
-    { "anxious", "Don't worry, {0}. Cybersecurity can seem overwhelming, but I'm here to guide you step by step." },
-    { "frustrated", "I get that cybersecurity can be frustrating, {0}. Let's tackle your concerns together." },
-    { "confused", "It's okay to feel confused, {0}. I'm here to explain things as simply as possible." },
-    { "curious", "Curiosity is great, {0}! Ask me anything about cybersecurity and I'll do my best to help." },
-    { "scared", "It's normal to feel scared about online threats, {0}. With the right knowledge, you can protect yourself." },
-    { "overwhelmed", "Take a deep breath, {0}. We'll go through cybersecurity topics at your pace." },
-    { "hopeful", "It's good to stay hopeful, {0}. Cybersecurity is something you can master over time." },
-    { "angry", "I understand it can be frustrating, {0}. Let's work together to make things clearer." },
-    { "doubtful", "It's okay to have doubts, {0}. Feel free to ask any questions you have." },
-    { "tired", "I know this can be tiring, {0}. Let's take it one step at a time." },
+        {
+            { "worried", "It's completely understandable to feel that way, {0}. Scammers can be very convincing. Let me share some tips to help you stay safe." },
+            { "anxious", "Don't worry, {0}. Cybersecurity can seem overwhelming, but I'm here to guide you step by step." },
+            { "frustrated", "I get that cybersecurity can be frustrating, {0}. Let's tackle your concerns together." },
+            { "confused", "It's okay to feel confused, {0}. I'm here to explain things as simply as possible." },
+            { "curious", "Curiosity is great, {0}! Ask me anything about cybersecurity and I'll do my best to help." },
+            { "scared", "It's normal to feel scared about online threats, {0}. With the right knowledge, you can protect yourself." },
+            { "overwhelmed", "Take a deep breath, {0}. We'll go through cybersecurity topics at your pace." },
+            { "hopeful", "It's good to stay hopeful, {0}. Cybersecurity is something you can master over time." },
+            { "angry", "I understand it can be frustrating, {0}. Let's work together to make things clearer." },
+            { "doubtful", "It's okay to have doubts, {0}. Feel free to ask any questions you have." },
+            { "tired", "I know this can be tiring, {0}. Let's take it one step at a time." },
     
-};
+        };
 
-
+        // <summary>
+        // A list of phrases that indicate the user is asking for further explanation or clarification.
+        // NLP Feature: Clarification detection (Intent classification).
+        // This allows the chatbot to detect follow-up questions and provide alternative or simplified responses
+        // to help users understand complex topics.
+       
         private readonly List<string> clarificationKeywords = new List<string>
     {
         "tell me more", "more details", "explain further", "i'm confused",
@@ -543,7 +595,7 @@ namespace ST10442012_POE
                 #endregion
               // ----------|| Common Basic Questions ||----------
 
-#region COMMON BASIC QUESTIONS AND RESPONSES
+               #region COMMON BASIC QUESTIONS AND RESPONSES
 (
     new[] { "how are you", "how are you doing", "whats up", "wagwaan" },
     new List<string>
@@ -602,7 +654,7 @@ namespace ST10442012_POE
 
             // ----------|| Social Engineering ||----------
 
-        #region SOCIAL ENGINEERING QUESTIONS AND RESPONSES
+                 #region SOCIAL ENGINEERING QUESTIONS AND RESPONSES
         (
             new[] { "what is social engineering", "define social engineering", "social engineering meaning", "explain social engineering" },
             new List<string>
@@ -640,10 +692,10 @@ namespace ST10442012_POE
         ),
         #endregion // SOCIAL ENGINEERING
 
+    
+            // ----------|| Data Privacy & Protection ||----------
 
-      // ----------|| Data Privacy & Protection ||----------
-
-        #region DATA PRIVACY AND PROTECTION QUESTIONS AND RESPONSES
+                #region DATA PRIVACY AND PROTECTION QUESTIONS AND RESPONSES
         (
             new[] { "what is data privacy", "define data privacy", "data privacy meaning" },
             new List<string>
@@ -682,9 +734,9 @@ namespace ST10442012_POE
 
         
 
-       // ----------|| Mobile Security ||----------
+            // ----------|| Mobile Security ||----------
 
-            #region MOBILE SECURITY QUESTIONS AND RESPONSES
+                #region MOBILE SECURITY QUESTIONS AND RESPONSES
             (
                 new[] { "how to keep my smartphone safe", "mobile security tips", "secure mobile phone" },
                 new List<string>
@@ -779,6 +831,13 @@ namespace ST10442012_POE
 
         private readonly SpeechSynthesizer synthesizer = new SpeechSynthesizer();
 
+
+
+
+
+        // <summary>
+        // Constructor initializes the SpeechSynthesizer and sets a neutral voice.
+        // </summary>
         public ChatbotLogic()
         {
             synthesizer.SelectVoiceByHints(VoiceGender.Neutral);
@@ -786,15 +845,33 @@ namespace ST10442012_POE
 
         // ---|| Public Methods for WPF Interaction ||---
 
+        // <summary>
+        // Returns the chatbot's initial greeting message prompting for the user's name.
+        // </summary>
+        // <returns>Welcome message string</returns>
+
         public string GetInitialGreeting()
         {
             return "Hello! I am the Cybersecurity Awareness Chatbot. To exit at any time, simply type 'exit'.\n\nLet's begin! What is your name?";
         }
 
-        public bool IsValidName(string input)
+
+
+        // <summary>
+        //  Validates the user's input as a proper name.
+        //  Ensures input is not null, empty, whitespace, and contains no digits.
+        //</summary>
+       
+        public bool IsValidName(string input)   
         {
             return !string.IsNullOrWhiteSpace(input) && !input.Any(char.IsDigit);
         }
+
+
+        // <summary>
+        // Sets the user's name if valid and returns a personalized welcome message.
+        // Also uses text-to-speech to speak the welcome message.
+        // </summary>
 
         public string SetUserName(string input)
         {
@@ -807,14 +884,27 @@ namespace ST10442012_POE
             return message;
         }
 
+        // <summary>
+        // Validates the user's input for their skill level in cybersecurity.
+        // Acceptable inputs are "Beginner", "Intermediate", or "Advanced" (case-insensitive).
+        // If valid, sets the internal skill level and outputs the formatted skill level.
+        // </summary>
+        // <param name="input">User input string representing skill level</param>
+        // <param name="skillLevel">Outputs the validated and formatted skill level</param>
+        // <returns>Confirmation message or error message</returns>
         public string ValidateSkillLevel(string input, out string skillLevel)
         {
             skillLevel = "";
+            // Check for empty or whitespace input
             if (string.IsNullOrWhiteSpace(input))
                 return "Skill level cannot be empty.";
 
+            // Check if user wants to exit
             if (input.Trim().ToLower() == "exit")
                 return $"Goodbye {userName}! Stay safe online.";
+
+            // Normalize input to lowercase for comparison
+            // Validate skill level against accepted values
 
             string skill = input.ToLower();
             if (skill == "beginner" || skill == "intermediate" || skill == "advanced")
@@ -824,33 +914,51 @@ namespace ST10442012_POE
                 return $"Great! I'll keep in mind that you're at a {userSkillLevel} level.";
             }
 
+            // Return error if input is invalid
             return "Please enter either Beginner, Intermediate, or Advanced.";
         }
+
+
+        // <summary>
+        // Validates the user's input for their favorite cybersecurity topic.
+        // Checks against a predefined list of allowed topics.
+        // If valid, sets the topic output parameter and returns a friendly confirmation message.
+        // </summary>
+        // <param name="input">User input string representing their favorite topic</param>
+        // <param name="topic">Outputs the validated topic</param>
+        // <param name="userName">The user's name, used for personalized messages</param>
+        // <returns>Confirmation message if valid, or error message if invalid</returns>
+
 
         public string ValidateFavoriteTopic(string input, out string topic, string userName)
         {
             topic = "";
             var allowedTopics = new[]
             {
-        "passwords",
-        "phishing",
-        "malware",
-        "safe browsing",
-        "social engineering",
-        "data privacy",
-        "mobile security"
+                 // List of allowed topics for user selection
+                "passwords",
+                "phishing",
+                "malware",
+                "safe browsing",
+                "social engineering",
+                "data privacy",
+                "mobile security"
     };
 
+            // Check for empty or whitespace input
             if (string.IsNullOrWhiteSpace(input))
                 return "Topic cannot be empty.";
 
+            // Handle user request to exit chat
             if (input.Trim().Equals("exit", StringComparison.OrdinalIgnoreCase))
                 return "Type 'exit' again if you'd like to leave the chat.";
 
+            // Loop through allowed topics to check for match (case-insensitive)
             foreach (var t in allowedTopics)
             {
                 if (input.Equals(t, StringComparison.OrdinalIgnoreCase))
                 {
+                    // Set the validated topic to output parameter
                     topic = t;
 
                     // Use topic variable here, not favoriteTopic (which is undefined)
@@ -861,18 +969,27 @@ namespace ST10442012_POE
                 $"Perfect choice, {userName}! I'm ready to talk about {topic} anytime. You can ask any questions on cybersecurity now."
             };
 
+                    // Select a random response from the array
                     var random = new Random();
                     return topicResponses[random.Next(topicResponses.Length)];
                 }
             }
 
+            // Return error if input topic does not match any allowed topics
+
             return "Please enter one of the suggested topics: Passwords, Phishing, Malware, Safe Browsing, Social Engineering, Data Privacy, or Mobile Security.";
         }
 
 
-     
 
 
+        // <summary>
+        // Processes the user's raw input, applies NLP logic, and returns an appropriate chatbot response.
+        // Handles exit commands, sentiment detection, clarification requests, keyword matching, and fallback replies.
+        // </summary>
+        // <param name="rawInput">The raw user input string</param>
+        //
+        //<returns>A chatbot response string based on the input</returns>
         public string HandleUserInput(string rawInput)
         {
             try
@@ -958,6 +1075,9 @@ namespace ST10442012_POE
         }
 
         // ---|| Helper Methods ||---
+        // <summary>
+        // Sanitizes input by removing punctuation and trimming whitespace, returning lowercase string.
+        // </summary>
 
         private string SanitizeInput(string input)
         {
@@ -970,6 +1090,11 @@ namespace ST10442012_POE
             return sb.ToString().ToLower().Trim();
         }
 
+
+        // <summary>
+        // Returns the next skill level in the progression path.
+        // </summary> 
+
         private string GetNextSkillLevel(string currentLevel)
         {
             switch (currentLevel.ToLower())
@@ -981,6 +1106,9 @@ namespace ST10442012_POE
             }
         }
 
+        // <summary>
+        // Uses the SpeechSynthesizer to asynchronously speak the given message.
+        // </summary>
         private void Speak(string message)
         {
             Task.Run(() => synthesizer.SpeakAsync(message));
@@ -988,11 +1116,17 @@ namespace ST10442012_POE
 
 
 
-
+        // <summary>
+        // Splits input string into a list of tokens (words) for processing.
+        // </summary>
         private List<string> Tokenize(string input)
         {
             return input.Split(new char[] { ' ', '\t', '\n' }, StringSplitOptions.RemoveEmptyEntries).ToList();
         }
+
+        // <summary>
+        // Checks if the sanitized input contains the sanitized keyword, considering synonyms and minor typos (via Levenshtein distance).
+        // </summary>
         private bool ContainsKeyword(string input, string keyword)
         {
             input = SanitizeInput(input);
@@ -1008,7 +1142,7 @@ namespace ST10442012_POE
                 return true;
 
 
-            // ✅ Synonym match (also exact tokens only)
+            //  Synonym match (also exact tokens only)
             if (synonymDictionary.TryGetValue(keyword, out var synonyms))
             {
                 foreach (var synonym in synonyms)
@@ -1019,7 +1153,7 @@ namespace ST10442012_POE
                 }
             }
 
-            // ✅ Optional: typo tolerance (Levenshtein distance)
+            // Optional: typo tolerance (Levenshtein distance)
             int maxDistance = 2;
             foreach (var token in inputTokens)
             {
@@ -1040,8 +1174,10 @@ namespace ST10442012_POE
         }
 
 
-
-
+        // Dictionary mapping main keywords to their synonyms to improve keyword matching
+        // Keys represent primary cybersecurity topics, values are lists of related alternative terms
+        // Used to recognize different ways users may refer to the same concept
+        // Case-insensitive to allow flexible matching
         private readonly Dictionary<string, List<string>> synonymDictionary = new Dictionary<string, List<string>>(StringComparer.OrdinalIgnoreCase)
 {
     { "cyber threats", new List<string> { "cyber attacks", "hacking attempts", "online threats", "security threats", "cybersecurity threats" } },
@@ -1056,7 +1192,9 @@ namespace ST10442012_POE
     { "antivirus", new List<string> { "anti-malware", "virus protection", "security software", "malware protection" } }
 };
 
-
+        // <summary>
+        // Computes the Levenshtein distance between two strings for typo-tolerant matching.
+        // </summary>
 
         private int LevenshteinDistance(string s, string t)
         {
@@ -1087,3 +1225,4 @@ namespace ST10442012_POE
 
     }
 }
+//---------- || End of ChatbotLogic.cs ||----------

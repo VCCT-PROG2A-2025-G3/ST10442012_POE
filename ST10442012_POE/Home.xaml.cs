@@ -13,11 +13,19 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
+
+//------------------------|| Description ||------------------------
+
+// This is the code-behind for the Home window of the Cybersecurity Awareness Chatbot application.
+// It handles user interactions with the main menu buttons and navigates to different windows accordingly.
+// Each button click event creates and shows a new window (ChatBot, Quiz, Tasks, Activity Log).
+// The Home window is either hidden or closed when navigating to another window to manage the user experience.
+
 namespace ST10442012_POE
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
+    // <summary>
+    // Interaction logic for MainWindow.xaml
+    // </summary>
     public partial class Home : Window
     {
         public Home()

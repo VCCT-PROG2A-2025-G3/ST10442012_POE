@@ -4,6 +4,24 @@ using System.Windows;
 
 namespace ST10442012_POE
 {
+
+    // ---------------------------------------------------------------------------
+    // Tasks.xaml.cs
+    //
+    // This class implements the code-behind for the Tasks window of the
+    // Cybersecurity Awareness application. It manages the adding, displaying,
+    // marking completion, and deletion of cybersecurity-related tasks.
+    //
+    // Features include:
+    // - ObservableCollection binding to ListView for dynamic task list updates
+    // - Input validation for task creation including optional reminders
+    // - Task completion status tracking and UI refresh
+    // - Logging of all task-related actions to the Activity Log
+    // - Navigation to other parts of the app via bottom navigation buttons
+    //
+    // This module helps users organize their cybersecurity tasks efficiently.
+    // ---------------------------------------------------------------------------
+
     public partial class Tasks : Window
     {
         // --------|| Task List Collection ||--------

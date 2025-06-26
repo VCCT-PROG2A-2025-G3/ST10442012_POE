@@ -4,6 +4,31 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 
+
+
+
+
+
+// ---------------------------------------------------------------------------
+// Quiz Window Class
+//
+// This class implements a cybersecurity quiz interface in a WPF application.
+// It presents randomized multiple-choice questions to the user, handles answer
+// submissions, provides feedback on answers, keeps track of the score, and
+// displays the final result. The quiz also logs each attempt for activity tracking.
+//
+// Features:
+// - Loads a randomized subset of 15 questions from a larger pool
+// - Displays questions and multiple-choice answers with radio buttons
+// - Validates user selection and gives immediate feedback
+// - Keeps score of correct answers and shows final performance message
+// - Allows retaking the quiz by resetting state and questions
+// - Includes navigation buttons for moving between different app windows
+//
+
+// ---------------------------------------------------------------------------
+
+
 namespace ST10442012_POE
 {
     public partial class Quiz : Window
@@ -11,16 +36,16 @@ namespace ST10442012_POE
         // --------|| Internal Question Class ||--------
         private class QuizQuestion
         {
-            public string Question { get; set; }
-            public string[] Options { get; set; }
-            public int CorrectIndex { get; set; }
-            public string Feedback { get; set; }
+            public string Question { get; set; } // The quiz question text
+            public string[] Options { get; set; } // The possible answer options
+            public int CorrectIndex { get; set; }   // Index of the correct answer option
+            public string Feedback { get; set; }     // Feedback to show after answering
         }
 
         // --------|| Quiz State Variables ||--------
-        private List<QuizQuestion> questions;
-        private int currentQuestion = 0;
-        private int score = 0;
+        private List<QuizQuestion> questions;   // List of questions to ask
+        private int currentQuestion = 0;        // Current question index
+        private int score = 0;                  //// Number of correct answers
 
         // --------|| Constructor ||--------
         public Quiz()

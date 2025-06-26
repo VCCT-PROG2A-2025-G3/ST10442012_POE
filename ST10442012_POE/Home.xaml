@@ -1,4 +1,14 @@
-﻿<Window x:Class="ST10442012_POE.Home"
+﻿<!--
+                                Description:
+    This is the main window for the Cybersecurity Awareness Chatbot application.
+    It features a clean and centered layout with a welcoming message and chatbot image.
+    The window includes buttons for navigating to different sections: ChatBot, Tasks, Quiz, and Activity Log.
+    The UI uses a white background with rounded corners for a modern and friendly appearance.
+-->
+
+
+
+<Window x:Class="ST10442012_POE.Home"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"

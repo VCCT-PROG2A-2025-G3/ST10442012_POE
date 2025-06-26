@@ -6,6 +6,21 @@ using System.Threading.Tasks;
 
 namespace ST10442012_POE
 {
+
+
+    // ---------------------------------------------------------------------------
+    // TaskItem Class
+    //
+    // This class represents a task item in the application, encapsulating
+    // properties such as the task title, description, an optional reminder date,
+    // and completion status. It also provides read-only properties to display
+    // the reminder date as text and to show the current status ("Completed" or "Pending").
+    //
+    // Used for managing and displaying tasks in the task management feature of the app.
+    //
+    
+    // ---------------------------------------------------------------------------
+
     class TaskItem
     {
 

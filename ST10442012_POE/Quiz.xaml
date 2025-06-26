@@ -1,4 +1,29 @@
-﻿<Window x:Class="ST10442012_POE.Quiz"
+﻿<!--
+    
+                                 Description:
+    
+  This XAML defines the layout for the "Cybersecurity Quiz" window in the application.
+  It contains:
+  - A StackPanel with:
+    * A TextBlock to display the current quiz question.
+    * Four RadioButtons for answer options (A, B, C, D).
+    * A Submit button to submit the selected answer.
+    * A TextBlock for feedback after submitting an answer.
+    * A TextBlock for the final score, initially hidden until the quiz ends.
+    * A "Redo Quiz" button, initially hidden, to restart the quiz.
+  - A bottom navigation bar with buttons linking to Home, Chatbot, Tasks, Quiz, and Activity Log windows,
+    each with an icon and label for easy navigation.
+
+  The window is fixed size, centered on the screen, with a clean white background.
+-->
+
+
+
+
+
+
+
+<Window x:Class="ST10442012_POE.Quiz"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Cybersecurity Quiz" Height="600" Width="400" WindowStartupLocation="CenterScreen" Background="White" ResizeMode="NoResize">

@@ -1,7 +1,26 @@
-﻿<Window x:Class="ST10442012_POE.ActivityLog"
+﻿<!--
+    Activity Log Window
+
+    This window displays a chronological list of recorded user activities such as
+    task creation, quiz attempts, and chatbot interactions. Activities are shown
+    in a clear table format with columns for Time, Action, and Details.
+
+    Users can view recent activities and load more entries by clicking the
+    "Show More" button. The bottom navigation bar provides quick access
+    to other main sections of the application: Home, Chatbot, Tasks, Quiz,
+    and Activity Log itself.
+
+    The design prioritizes simplicity and readability, using a clean white
+    background and well-organized layout for easy navigation and use.
+-->
+
+
+
+
+<Window x:Class="ST10442012_POE.ActivityLog"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Activity Log" Height="600" Width="500" WindowStartupLocation="CenterScreen" Background="White" ResizeMode="NoResize">
+        Title="Activity Log" Height="600" Width="700" WindowStartupLocation="CenterScreen" Background="White" ResizeMode="NoResize">
     <Grid>
         <!-- Layout with two rows: Main Content + Bottom Navigation -->
         <Grid.RowDefinitions>
