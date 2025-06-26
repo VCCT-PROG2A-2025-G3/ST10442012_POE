@@ -7,69 +7,82 @@ namespace ST10442012_POE
 {
     public partial class ActivityLog : Window
     {
+        // --------------------|| Activity Entry Class ||--------------------
+       
+        // This class manages the Activity Log window, which displays a list of recent
+        // user actions across the application such as task updates, quiz attempts,
+        // and chatbot interactions. It supports paging with a "Show More" feature,
+        // keeps a maximum number of log entries for performance, and provides
+        // navigation to other parts of the app.
+        //
+        // Logs are stored in a shared collection accessible throughout the app,
+        // enabling consistent tracking and review of user activities.
+        // ---------------------------------------------------------------
 
-        // Represents a single activity log entry
         public class ActivityEntry
         {
-            public string Time { get; set; } // Timestamp of the log entry
-            public string Action { get; set; } // Type of action performed (e.g. Task Created)
-            public string Details { get; set; } // Additional details about the action
+            public string Time { get; set; }     // Timestamp of the log entry
+            public string Action { get; set; }   // Type of action performed
+            public string Details { get; set; }  // Additional description of the action
         }
 
-        // Static collection that holds all log entries application-wide
-       
+        // --------------------|| Log Collections ||--------------------
+        // Stores all log entries globally (shared across the app)
         public static ObservableCollection<ActivityEntry> AllLogEntries { get; } = new ObservableCollection<ActivityEntry>();
-        // Collection of entries currently visible in the UI (paged)
+
+        // Stores only currently visible/paged entries in the UI
         private ObservableCollection<ActivityEntry> visibleEntries = new ObservableCollection<ActivityEntry>();
 
-        // Number of entries to display initially and incrementally when "Show More" is clicked
+        // Number of log entries to show initially (and when "Show More" is clicked)
         private int displayCount = 10;
 
-        // Optional max cap to prevent excessive memory use in case of lots of logs
-        private const int MaxLogEntries = 1000; // Optional safety cap
+        // Limit total logs to avoid high memory usage
+        private const int MaxLogEntries = 1000;
 
-
-        // Constructor - sets up data binding and loads the first page of logs
+        // --------------------|| Constructor ||--------------------
+        // Initializes UI and loads the first set of log entries
         public ActivityLog()
         {
             InitializeComponent();
 
-            // Bind the ListView's items source to the visible entries collection
+            // Bind the ListView to the visible entries
             ActivityListView.ItemsSource = visibleEntries;
-            // Load initial batch of log entries to display
+
+            // Load the initial set of logs into the visible list
             LoadInitialEntries();
         }
 
-
-        // Loads the first 'displayCount' entries from the full log into visibleEntries
+        // --------------------|| Load Initial Log Entries ||--------------------
+        // Loads the top 'displayCount' logs into the UI from the full collection
         private void LoadInitialEntries()
         {
             visibleEntries.Clear();
-            // Take the first 'displayCount' entries from AllLogEntries and add to visibleEntries
+
             foreach (var entry in AllLogEntries.Take(displayCount))
             {
                 visibleEntries.Add(entry);
             }
         }
 
-        // Event handler for "Show More" button click
-        // Increases the number of visible entries by 10 and reloads the list
+        // --------------------|| Show More Button Logic ||--------------------
+        // Adds 10 more logs to the visible list when "Show More" is clicked
         private void ShowMore_Click(object sender, RoutedEventArgs e)
         {
             displayCount += 10;
             LoadInitialEntries();
         }
 
-        // Static method to add a new log entry from anywhere in the application
+        // --------------------|| Add New Log Entry (Static Method) ||--------------------
+        // Allows other classes to log actions into the activity log
         public static void AddLog(string action, string details)
         {
-            // Optional: Prevent excessive memory usage
+            // Remove the oldest log if we've hit the max limit
             if (AllLogEntries.Count >= MaxLogEntries)
             {
-                AllLogEntries.RemoveAt(AllLogEntries.Count - 1); // remove oldest
+                AllLogEntries.RemoveAt(AllLogEntries.Count - 1);
             }
 
-            // Insert new entry at the top of the list (most recent first)
+            // Insert the new log at the top
             AllLogEntries.Insert(0, new ActivityEntry
             {
                 Time = DateTime.Now.ToString("g"),
@@ -78,39 +91,34 @@ namespace ST10442012_POE
             });
         }
 
-        // ------------ Navigation Buttons ------------
-
-        // Navigate to Home window and close this one
+        // --------------------|| Navigation Buttons ||--------------------
         private void HomeButton_Click(object sender, RoutedEventArgs e)
         {
             new Home().Show();
             Close();
         }
 
-        // Navigate to ChatBot window and close this one
         private void ChatBotButton_Click(object sender, RoutedEventArgs e)
         {
             new ChatBot().Show();
             Close();
         }
 
-        // Navigate to Tasks window and close this one
         private void TasksButton_Click(object sender, RoutedEventArgs e)
         {
             new Tasks().Show();
             Close();
         }
 
-        // Navigate to Quiz window and close this one
         private void QuizButton_Click(object sender, RoutedEventArgs e)
         {
             new Quiz().Show();
             Close();
         }
-        // ActivityLog button clicked while already on ActivityLog, so do nothing
+
         private void ActivityLogButton_Click(object sender, RoutedEventArgs e)
         {
-            // Already on ActivityLog
+            // Already on ActivityLog, no action needed
         }
     }
 }

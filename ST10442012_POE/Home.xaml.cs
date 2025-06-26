@@ -15,11 +15,11 @@ using System.Windows.Shapes;
 
 
 //------------------------|| Description ||------------------------
-
 // This is the code-behind for the Home window of the Cybersecurity Awareness Chatbot application.
-// It handles user interactions with the main menu buttons and navigates to different windows accordingly.
-// Each button click event creates and shows a new window (ChatBot, Quiz, Tasks, Activity Log).
-// The Home window is either hidden or closed when navigating to another window to manage the user experience.
+// It manages the main menu, allowing users to navigate to different sections: ChatBot, Quiz, Tasks, and Activity Log.
+// When a menu button is clicked, it opens the corresponding window and hides or closes the Home window
+// to ensure smooth user experience and proper window management.
+//---------------------------------------------------------------
 
 namespace ST10442012_POE
 {
@@ -33,35 +33,40 @@ namespace ST10442012_POE
             InitializeComponent();
         }
 
+        // Handles the ChatBot button click event
+        // Opens the ChatBot window and hides the current Home window
         private void ChatBot_Click(object sender, RoutedEventArgs e)
         {
             ChatBot chatbotWindow = new ChatBot();
             chatbotWindow.Show();
-            this.Hide(); // Optional: hides the Home window
+            this.Hide(); // Hide the Home window to keep it in memory but not visible
         }
 
-
-
+        // Handles the Quiz button click event
+        // Opens the Quiz window and closes the Home window
         private void Quiz_Click(object sender, RoutedEventArgs e)
         {
             Quiz quizWindow = new Quiz();
             quizWindow.Show();
-            this.Close();
+            this.Close(); // Close the Home window as Quiz window takes focus
         }
 
+        // Handles the Tasks button click event
+        // Opens the Tasks window and closes the Home window
         private void Tasks_Click(object sender, RoutedEventArgs e)
         {
             Tasks tasksWindow = new Tasks();
             tasksWindow.Show();
-            this.Close();
+            this.Close(); // Close the Home window when navigating away
         }
 
-
+        // Handles the Activity Log button click event
+        // Opens the ActivityLog window and closes the Home window
         private void ActivityLog_Click(object sender, RoutedEventArgs e)
         {
             ActivityLog activityLogWindow = new ActivityLog();
             activityLogWindow.Show();
-            this.Close();
+            this.Close(); // Close Home window to focus on Activity Log
         }
 
     }

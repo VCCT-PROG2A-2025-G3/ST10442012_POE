@@ -1,9 +1,50 @@
 ﻿<!--
-                                Description:
-    This is the main window for the Cybersecurity Awareness Chatbot application.
-    It features a clean and centered layout with a welcoming message and chatbot image.
-    The window includes buttons for navigating to different sections: ChatBot, Tasks, Quiz, and Activity Log.
-    The UI uses a white background with rounded corners for a modern and friendly appearance.
+ 
+    
+   
+This is the Home.xaml file — the first window that opens when you launch the Cybersecurity Awareness Chatbot application.
+
+I designed it to be simple and user-friendly, with a clean white background and rounded corners to make it look modern and welcoming.
+
+At the top, there’s a chatbot image and a big welcome message, which introduces the purpose of the app: to promote cybersecurity awareness in a fun and interactive way.
+
+Below that, I included four navigation buttons:
+
+ChatBot
+
+Tasks
+
+Quiz
+
+Activity Log
+
+Each button is styled consistently and allows the user to jump to a different part of the app. This keeps everything organized and easy to use.
+
+The layout is centered using a StackPanel, so no matter the screen size, everything stays in the middle and looks neat.
+
+In short, this window acts as a central menu — a clean and friendly starting point for the user.
+    
+    
+    
+    Referencees for icons:
+    
+    home icon : https://thenounproject.com/browse/icons/term/home-icon/
+    quiz icon : https://www.shutterstock.com/search/quizzes-icon
+    Chatbot icon :https://www.istockphoto.com/illustrations/chatbot-icon
+    Tasks icon : https://www.svgrepo.com/svg/11307/task-list
+    Actvty Log icon :https://www.shutterstock.com/search/activity-log-icon
+    
+    
+    //I used the template look of chatgbt,gemini, and other chatbots as a reference for the design of this window.
+    
+    
+    
+    
+    
+     
+    
+    
+    
 -->
 
 
@@ -23,29 +64,31 @@
                 <Image Source="chatbot.png" Width="120" Height="120" Margin="0,10,0,20" HorizontalAlignment="Center"/>
 
                 <!-- Welcome Text -->
+                
                 <TextBlock Text="Welcome To" FontWeight="Bold" FontSize="22" TextAlignment="Center" Margin="0,0,0,0"/>
                 <TextBlock Text="Cybersecurity" FontWeight="Bold" FontSize="22" TextAlignment="Center" Margin="0,-5,0,0"/>
                 <TextBlock Text="Awareness" FontWeight="Bold" FontSize="22" TextAlignment="Center" Margin="0,-5,0,0"/>
                 <TextBlock Text="Chatbot" FontWeight="Bold" FontSize="22" TextAlignment="Center" Margin="0,-5,0,20"/>
 
                 <!-- Buttons -->
+                
               
 
                     <Button Content="ChatBot" Height="40" Margin="0,5" FontSize="16" 
-            BorderBrush="Black" BorderThickness="2" Background="White" 
-            Click="ChatBot_Click"/>
+                    BorderBrush="Black" BorderThickness="2" Background="White" 
+                    Click="ChatBot_Click"/>
 
-                    <Button Content="Tasks" Height="40" Margin="0,5" FontSize="16" 
-            BorderBrush="Black" BorderThickness="2" Background="White" 
-            Click="Tasks_Click"/>
+                            <Button Content="Tasks" Height="40" Margin="0,5" FontSize="16" 
+                    BorderBrush="Black" BorderThickness="2" Background="White" 
+                    Click="Tasks_Click"/>
 
-                    <Button Content="Quiz" Height="40" Margin="0,5" FontSize="16" 
-            BorderBrush="Black" BorderThickness="2" Background="White" 
-            Click="Quiz_Click"/>
+                            <Button Content="Quiz" Height="40" Margin="0,5" FontSize="16" 
+                    BorderBrush="Black" BorderThickness="2" Background="White" 
+                    Click="Quiz_Click"/>
 
-                <Button Content="Activity Log" Height="40" Margin="0,5" FontSize="16" 
-            BorderBrush="Black" BorderThickness="2" Background="White" 
-            Click="ActivityLog_Click"/> 
+                        <Button Content="Activity Log" Height="40" Margin="0,5" FontSize="16" 
+                    BorderBrush="Black" BorderThickness="2" Background="White" 
+                    Click="ActivityLog_Click"/> 
 
             </StackPanel>
         </Border>

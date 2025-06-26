@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ST10442012_POE;
+using System;
 using System.Collections.ObjectModel;
 using System.Speech.Synthesis;
 using System.Threading.Tasks;
@@ -10,6 +11,7 @@ using System.Windows.Controls;
 
 
 //-------- Description --------
+
 // The ChatBot.xaml.cs class represents the main chatbot interface window.
 // It manages the chat conversation flow, collecting user details such as
 // name, cybersecurity skill level, and favorite topic.
@@ -20,6 +22,32 @@ using System.Windows.Controls;
 // navigation between different application windows.
 // The chat messages are stored in an ObservableCollection bound to the UI.
 // SpeechSynthesizer is used for voice output of chatbot messages.
+
+
+
+
+
+
+
+
+
+
+// This is the code-behind for the chatbot interface in my app. It handles everything the user does during the conversation.
+
+// I store user details like their name, cybersecurity skill level, and favorite topic, and I use a SpeechSynthesizer to let the bot speak aloud.
+
+// I also use an ObservableCollection to hold and display the chat messages in the UI.
+
+// At the heart of this class is a connection to my ChatbotLogic class. ChatbotLogic handles all the decision-making and responses — so when a user types something, I send it to ChatbotLogic, and it gives back the right reply.
+
+// The main method here is SendButton_Click. It checks what the user typed, collects their info if needed, or sends it to ChatbotLogic to process. I also handle the "exit" command to end the chat.
+
+// To make the chatbot feel more human, I use a method called SpeakAndType that talks and types out the bot's response with a nice animation.
+
+// I also have helper methods like AppendMessage, AppendThinking, and RemoveThinking to update the UI as messages come in.
+
+// Finally, I include navigation methods to move between other windows like Home, Quiz, Tasks, and Activity Log."
+
 //-------- End Description --------
 
 namespace ST10442012_POE

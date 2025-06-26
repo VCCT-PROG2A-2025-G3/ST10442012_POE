@@ -131,9 +131,6 @@
     <Resource Include="chatbot.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="send_icon.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="home.png" />
   </ItemGroup>
   <ItemGroup>

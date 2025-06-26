@@ -56,6 +56,10 @@ namespace ST10442012_POE
         }
 
         // --------|| Load and Randomize Questions ||--------
+        // This method initializes the quiz with a random selection of questions
+        // It selects 15 unique questions from a predefined list of 30.
+        // This ensures variety in each quiz attempt.
+        // // The questions are stored in a private list and shuffled to ensure randomness.
         private void LoadQuestions()
         {
             // Full list of 30 quiz questions
@@ -243,6 +247,9 @@ namespace ST10442012_POE
         }
 
         // --------|| Display Current Question ||--------
+        // This method updates the UI to show the current question and its options.
+        // It also handles visibility of options based on whether they are empty.
+        // It resets the feedback text and enables the submit button.
         private void ShowQuestion()
         {
             if (currentQuestion < questions.Count)
@@ -274,27 +281,46 @@ namespace ST10442012_POE
         }
 
         // --------|| Handle Submit Button ||--------
+        // This method processes the user's answer selection, checks correctness,
+        // provides feedback, and logs the attempt.
+        // It also manages the transition to the next question or final score display.
+
+        //--------------------|| SubmitButton_Click Method ||--------------------
+        // This method handles the event when the user clicks the "Submit" button in the quiz.
+        // It checks which answer the user selected, validates the selection,
+        // compares it to the correct answer, displays feedback, logs the result,
+        // and then automatically moves to the next question after a short delay.
+        //------------------------------------------------------------------------
+
         private void SubmitButton_Click(object sender, RoutedEventArgs e)
         {
+            //--------------------|| Get Selected Option ||--------------------
+            // Default value -1 means no option selected yet
             int selected = -1;
+
+            // Check which radio button is selected and assign its index
             if (OptionA.IsChecked == true) selected = 0;
             else if (OptionB.IsChecked == true) selected = 1;
             else if (OptionC.IsChecked == true) selected = 2;
             else if (OptionD.IsChecked == true) selected = 3;
 
+            //--------------------|| Validate Selection ||--------------------
             if (selected == -1)
             {
+                // If no option was selected, show warning and exit method
                 FeedbackText.Text = "Please select an answer.";
                 FeedbackText.Foreground = System.Windows.Media.Brushes.Red;
                 return;
             }
 
-            var q = questions[currentQuestion];
-            bool isCorrect = (selected == q.CorrectIndex);  // <-- Add this line to track correctness
+            //--------------------|| Check Answer ||--------------------
+            var q = questions[currentQuestion]; // Get current question
+            bool isCorrect = (selected == q.CorrectIndex); // Compare user's selection to the correct answer
 
+            // Provide feedback based on whether the answer was correct
             if (isCorrect)
             {
-                score++;
+                score++; // Increment score if correct
                 FeedbackText.Text = q.Feedback;
                 FeedbackText.Foreground = System.Windows.Media.Brushes.Green;
             }
@@ -304,37 +330,54 @@ namespace ST10442012_POE
                 FeedbackText.Foreground = System.Windows.Media.Brushes.Red;
             }
 
-            // --- Add this logging call right here ---
+            //--------------------|| Log Quiz Attempt ||--------------------
             ActivityLog.AddLog(
                 "Quiz Attempt",
                 $"Q{currentQuestion + 1}: {q.Question} | Selected: '{q.Options[selected]}' | Correct: '{q.Options[q.CorrectIndex]}' | Result: {(isCorrect ? "Correct" : "Incorrect")}"
             );
 
-            SubmitButton.IsEnabled = false;
+            //--------------------|| Disable Submit & Start Timer ||--------------------
+            SubmitButton.IsEnabled = false; // Prevent multiple submissions
 
+            // Create a timer to move to the next question after 2 seconds
             var timer = new System.Windows.Threading.DispatcherTimer();
             timer.Interval = TimeSpan.FromSeconds(2);
+
             timer.Tick += (s, args) =>
             {
-                timer.Stop();
-                currentQuestion++;
-                ShowQuestion();
+                timer.Stop(); // Stop the timer once it ticks
+                currentQuestion++; // Move to next question
+                ShowQuestion(); // Display the next question
             };
-            timer.Start();
+
+            timer.Start(); // Start the timer
         }
 
 
-        // --------|| Display Final Score ||--------
+
+        //--------------------|| ShowFinalScore Method ||--------------------
+        // This method displays the final score and feedback after the user completes the quiz.
+        // It hides the quiz options, shows the user's score, and displays a message based on performance.
+        // The "Redo" button is also shown to allow retrying the quiz.
+        //-------------------------------------------------------------------
+
         private void ShowFinalScore()
         {
+            // --------|| Show Main Quiz Panel ||--------
             QuizPanel.Visibility = Visibility.Visible;
+
+            // --------|| Update Question Text ||--------
             QuestionText.Text = "Quiz Complete!";
+
+            // --------|| Hide Option Buttons & Submit ||--------
             OptionA.Visibility = OptionB.Visibility = OptionC.Visibility = OptionD.Visibility = Visibility.Collapsed;
             SubmitButton.Visibility = Visibility.Collapsed;
 
+            // --------|| Show Score ||--------
             ScoreText.Visibility = Visibility.Visible;
             ScoreText.Text = $"Your Score: {score} / {questions.Count}";
 
+            // --------|| Show Feedback Based on Score ||--------
             if (score >= 8)
                 FeedbackText.Text = "Great job! You're a cybersecurity pro!";
             else if (score >= 5)
@@ -344,51 +387,67 @@ namespace ST10442012_POE
 
             FeedbackText.Foreground = System.Windows.Media.Brushes.Blue;
 
-            // Show redo button after quiz ends
+            // --------|| Show Redo Button ||--------
             RedoButton.Visibility = Visibility.Visible;
         }
 
-        // --------|| Redo Quiz Button Logic ||--------
+
+        // --------------------|| Redo Quiz Button Logic ||--------------------
+        // This method resets the quiz when the Redo button is clicked.
+        // It sets the current question and score back to zero, reloads the questions,
+        // displays the first question again, and resets the UI.
         private void RedoButton_Click(object sender, RoutedEventArgs e)
         {
-            currentQuestion = 0;
-            score = 0;
-            LoadQuestions();
-            ShowQuestion();
+            currentQuestion = 0;                // Reset to first question
+            score = 0;                          // Reset score
+            LoadQuestions();                   // Reload all quiz questions
+            ShowQuestion();                    // Display the first question
 
-            RedoButton.Visibility = Visibility.Collapsed;
-            ScoreText.Visibility = Visibility.Collapsed;
-            SubmitButton.Visibility = Visibility.Visible;
+            RedoButton.Visibility = Visibility.Collapsed;   // Hide redo button
+            ScoreText.Visibility = Visibility.Collapsed;    // Hide score text
+            SubmitButton.Visibility = Visibility.Visible;   // Show submit button again
         }
 
-        // --------|| Navigation Bar Buttons ||--------
+        // --------------------|| Navigation Bar Buttons ||--------------------
+
+        // --------|| Home Button ||--------
+        // Navigates to the Home window and closes the current Quiz window
         private void HomeButton_Click(object sender, RoutedEventArgs e)
         {
             new Home().Show();
             this.Close();
         }
 
+        // --------|| ChatBot Button ||--------
+        // Navigates to the ChatBot window and closes the current Quiz window
         private void ChatBotButton_Click(object sender, RoutedEventArgs e)
         {
             new ChatBot().Show();
             this.Close();
         }
 
+        // --------|| Tasks Button ||--------
+        // Navigates to the Tasks window and closes the current Quiz window
         private void TasksButton_Click(object sender, RoutedEventArgs e)
         {
             new Tasks().Show();
             this.Close();
         }
 
+        // --------|| Quiz Button ||--------
+        // Does nothing since the user is already in the Quiz window
         private void QuizButton_Click(object sender, RoutedEventArgs e)
         {
             // Already in Quiz window
         }
 
+        // --------|| Activity Log Button ||--------
+        // Navigates to the Activity Log window and closes the current Quiz window
         private void ActivityLogButton_Click(object sender, RoutedEventArgs e)
         {
             new ActivityLog().Show();
             this.Close();
         }
+
     }
 }

@@ -8,22 +8,22 @@ using System.Threading.Tasks;
 
 //--------------------------------|| Description ||---------------------------------
 
-/// ChatbotLogic is the main class responsible for driving the Cybersecurity Awareness Chatbot.
-/// It processes user input, detects intent using keyword-based NLP, and provides spoken and textual responses
-/// tailored to cybersecurity education.
-///
-/// Key Features:
-/// - Handles conversation flow (name input, skill level, topic selection, Q&A).
-/// - Responds to cybersecurity topics like phishing, social engineering, safe browsing, and more.
-/// - Uses basic Natural Language Processing techniques:
-///   • Input sanitization and tokenization for text normalization.
-///   • Synonym matching via a configurable dictionary for broader intent coverage.
-///   • Typo tolerance using Levenshtein Distance for fuzzy keyword recognition.
-///   • Clarification handling to provide varied follow-up answers.
-/// - Incorporates speech synthesis via System.Speech.Synthesis for accessibility.
-/// - Tracks user-specific context (name, skill level, interest) to personalize responses.
-///
-/// This class enables an interactive and informative experience aimed at improving user cybersecurity awareness.
+// ChatbotLogic is the main class responsible for driving the Cybersecurity Awareness Chatbot.
+// It processes user input, detects intent using keyword-based NLP, and provides spoken and textual responses
+// tailored to cybersecurity education.
+//
+// Key Features:
+// - Handles conversation flow (name input, skill level, topic selection, Q&A).
+// - Responds to cybersecurity topics like phishing, social engineering, safe browsing, and more.
+// - Uses baSic Natural Language Processing techniques:
+//   • Input sanitization and tokenization for text normalization.
+//   • Synonym matching via a configurable dictionary for broader intent coverage.
+//   • Typo tolerance using Levenshtein Distance for fuzzy keyword recognition.
+//   • Clarification handling to provide varied follow-up answers.
+// - Incorporates speech synthesis via System.Speech.Synthesis for accessibility.
+// - Tracks user-specific context (name, skill level, interest) to personalize responses.
+//
+// This class enables an interactive and informative experience aimed at improving user cybersecurity awareness.
 
 
 
@@ -112,7 +112,14 @@ namespace ST10442012_POE
         "step by step", "what does that mean", "rephrase please"
     };
 
+        //<summary>
+        // A list of keyword-response pairs used to match user input to appropriate responses.
+        // NLP Feature: Keyword-based intent recognition.
 
+        // This allows the chatbot to recognize user intent based on specific keywords or phrases
+        // and provide relevant responses for various cybersecurity topics.
+        // This is the core of the chatbot's natural language processing capabilities.
+       
         private readonly List<(string[] Keywords, List<string> Responses)> keywordResponses = new List<(string[], List<string>)>
         {
             // ----------|| General Cybersecurity Awareness ||----------
@@ -833,8 +840,6 @@ namespace ST10442012_POE
 
 
 
-
-
         // <summary>
         // Constructor initializes the SpeechSynthesizer and sets a neutral voice.
         // </summary>
@@ -1179,18 +1184,18 @@ namespace ST10442012_POE
         // Used to recognize different ways users may refer to the same concept
         // Case-insensitive to allow flexible matching
         private readonly Dictionary<string, List<string>> synonymDictionary = new Dictionary<string, List<string>>(StringComparer.OrdinalIgnoreCase)
-{
-    { "cyber threats", new List<string> { "cyber attacks", "hacking attempts", "online threats", "security threats", "cybersecurity threats" } },
-    { "passwords", new List<string> { "passcodes", "login credentials", "password", "account passwords", "user passwords" } },
-    { "phishing", new List<string> { "scam emails", "fraudulent emails", "fake websites", "email scams", "phishing scams" } },
-    { "malware", new List<string> { "viruses", "spyware", "ransomware", "trojans", "malicious software" } },
-    { "safe browsing", new List<string> { "secure browsing", "internet safety", "online safety", "browsing securely", "safe internet use" } },
-    { "firewall", new List<string> { "network firewall", "internet firewall", "security firewall", "firewall protection" } },
-    { "encryption", new List<string> { "data encryption", "encrypting data", "encrypted communication", "secure encryption" } },
-    { "two-factor authentication", new List<string> { "2FA", "multi-factor authentication", "MFA", "two-step verification" } },
-    { "cyberbullying", new List<string> { "online bullying", "internet harassment", "digital bullying", "online harassment" } },
-    { "antivirus", new List<string> { "anti-malware", "virus protection", "security software", "malware protection" } }
-};
+            {
+                { "cyber threats", new List<string> { "cyber attacks", "hacking attempts", "online threats", "security threats", "cybersecurity threats" } },
+                { "passwords", new List<string> { "passcodes", "login credentials", "password", "account passwords", "user passwords" } },
+                { "phishing", new List<string> { "scam emails", "fraudulent emails", "fake websites", "email scams", "phishing scams" } },
+                { "malware", new List<string> { "viruses", "spyware", "ransomware", "trojans", "malicious software" } },
+                { "safe browsing", new List<string> { "secure browsing", "internet safety", "online safety", "browsing securely", "safe internet use" } },
+                { "firewall", new List<string> { "network firewall", "internet firewall", "security firewall", "firewall protection" } },
+                { "encryption", new List<string> { "data encryption", "encrypting data", "encrypted communication", "secure encryption" } },
+                { "two-factor authentication", new List<string> { "2FA", "multi-factor authentication", "MFA", "two-step verification" } },
+                { "cyberbullying", new List<string> { "online bullying", "internet harassment", "digital bullying", "online harassment" } },
+                { "antivirus", new List<string> { "anti-malware", "virus protection", "security software", "malware protection" } }
+            };
 
         // <summary>
         // Computes the Levenshtein distance between two strings for typo-tolerant matching.
