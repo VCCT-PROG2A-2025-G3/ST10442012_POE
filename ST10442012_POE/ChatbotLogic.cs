@@ -69,11 +69,11 @@ namespace ST10442012_POE
         // <summary>
         // A dictionary mapping common user emotions (detected through keywords)
         // to personalized response templates that include the user's name.
-     
+
         // NLP Feature: Sentiment-based response generation.
         // This enables the chatbot to provide empathetic and context-aware replies
         // when users express emotions like fear, confusion, or frustration.
-        
+
         private readonly Dictionary<string, string> sentimentTemplates = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
         {
             { "worried", "It's completely understandable to feel that way, {0}. Scammers can be very convincing. Let me share some tips to help you stay safe." },
@@ -87,7 +87,7 @@ namespace ST10442012_POE
             { "angry", "I understand it can be frustrating, {0}. Let's work together to make things clearer." },
             { "doubtful", "It's okay to have doubts, {0}. Feel free to ask any questions you have." },
             { "tired", "I know this can be tiring, {0}. Let's take it one step at a time." },
-    
+
         };
 
         // <summary>
@@ -95,7 +95,7 @@ namespace ST10442012_POE
         // NLP Feature: Clarification detection (Intent classification).
         // This allows the chatbot to detect follow-up questions and provide alternative or simplified responses
         // to help users understand complex topics.
-       
+
         private readonly List<string> clarificationKeywords = new List<string>
     {
         "tell me more", "more details", "explain further", "i'm confused",
@@ -119,7 +119,7 @@ namespace ST10442012_POE
         // This allows the chatbot to recognize user intent based on specific keywords or phrases
         // and provide relevant responses for various cybersecurity topics.
         // This is the core of the chatbot's natural language processing capabilities.
-       
+
         private readonly List<(string[] Keywords, List<string> Responses)> keywordResponses = new List<(string[], List<string>)>
         {
             // ----------|| General Cybersecurity Awareness ||----------
@@ -815,7 +815,7 @@ namespace ST10442012_POE
                         $"It's {DateTime.Now:MMMM}"
                     }
                 ),
-                
+
                 (
                     new[] { "ask you ","help", "what can I ask", "what questions can i ask you about", "what should I ask", "give me ideas on what i must ask you about" },
                     new List<string>
@@ -866,8 +866,8 @@ namespace ST10442012_POE
         //  Validates the user's input as a proper name.
         //  Ensures input is not null, empty, whitespace, and contains no digits.
         //</summary>
-       
-        public bool IsValidName(string input)   
+
+        public bool IsValidName(string input)
         {
             return !string.IsNullOrWhiteSpace(input) && !input.Any(char.IsDigit);
         }
@@ -1039,37 +1039,47 @@ namespace ST10442012_POE
 
 
 
-                // Keyword Matching
+                // Keyword Matching - collect all matches first
+                var matchedEntries = new List<(List<string> Responses, string MatchedKeyword)>();
+
                 foreach (var entry in keywordResponses)
                 {
                     foreach (var keyword in entry.Keywords)
                     {
                         if (ContainsKeyword(userInput, keyword))
-
                         {
-                            int newIndex;
-                            do
-                            {
-                                newIndex = rand.Next(entry.Responses.Count);
-                            } while (newIndex == lastResponseIndex && entry.Responses.Count > 1);
-
-                            lastResponseIndex = newIndex;
-                            lastResponses = entry.Responses;
-                            string response = entry.Responses[newIndex];
-
-                            bool prependIntro = false;
-                            if (!string.IsNullOrEmpty(favoriteTopic))
-                            {
-                                prependIntro = userInput.Contains(favoriteTopic.ToLower());
-                            }
-
-                            if (prependIntro)
-                                return $"As someone interested in {favoriteTopic}, {userName}, {response}";
-                            else
-                                return response;
+                            matchedEntries.Add((entry.Responses, keyword));
                         }
                     }
                 }
+
+                if (matchedEntries.Count > 0)
+                {
+                    // Pick the entry with the longest matched keyword for better accuracy
+                    var bestMatch = matchedEntries.OrderByDescending(m => m.MatchedKeyword.Length).First();
+
+                    int newIndex;
+                    do
+                    {
+                        newIndex = rand.Next(bestMatch.Responses.Count);
+                    } while (newIndex == lastResponseIndex && bestMatch.Responses.Count > 1);
+
+                    lastResponseIndex = newIndex;
+                    lastResponses = bestMatch.Responses;
+                    string response = bestMatch.Responses[newIndex];
+
+                    bool prependIntro = false;
+                    if (!string.IsNullOrEmpty(favoriteTopic))
+                    {
+                        prependIntro = userInput.Contains(favoriteTopic.ToLower());
+                    }
+
+                    if (prependIntro)
+                        return $"As someone interested in {favoriteTopic}, {userName}, {response}";
+                    else
+                        return response;
+                }
+
 
                 return $"I’m not sure how to answer that one, {userName}. Please rephrase your question or check your spelling.\nMaybe try asking about passwords, phishing, malware or safe browsing — those are my specialties!";
             }
