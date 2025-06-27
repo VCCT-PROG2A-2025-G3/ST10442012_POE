@@ -15,7 +15,7 @@ using System.Threading.Tasks;
 // Key Features:
 // - Handles conversation flow (name input, skill level, topic selection, Q&A).
 // - Responds to cybersecurity topics like phishing, social engineering, safe browsing, and more.
-// - Uses baSic Natural Language Processing techniques:
+// - Uses  Natural Language Processing techniques:
 //   • Input sanitization and tokenization for text normalization.
 //   • Synonym matching via a configurable dictionary for broader intent coverage.
 //   • Typo tolerance using Levenshtein Distance for fuzzy keyword recognition.
@@ -795,21 +795,24 @@ namespace ST10442012_POE
                     }
                 ),
                     (
-                    new[] { "time", "what time is it" },
+                    new[] { "what time is it", "current time", "tell me the time", "give me the time" }
+,
                     new List<string>
                     {
                         $"The current time is {DateTime.Now:hh:mm tt}"
                     }
                 ),
                 (
-                    new[] { "day", "today", "what day is it" },
+                    new[] { "what day is it", "current day", "tell me the day", "give me the day" }
+,
                     new List<string>
                     {
                         $"Today is {DateTime.Now:dddd}"
                     }
                 ),
                 (
-                    new[] { "month", "current month", "which month is it" },
+                    new[] { "what month is it", "current month", "tell me the month" }
+,
                     new List<string>
                     {
                         $"It's {DateTime.Now:MMMM}"
@@ -835,6 +838,8 @@ namespace ST10442012_POE
 
             
     };
+
+        
 
         private readonly SpeechSynthesizer synthesizer = new SpeechSynthesizer();
 
@@ -1055,8 +1060,16 @@ namespace ST10442012_POE
 
                 if (matchedEntries.Count > 0)
                 {
-                    // Pick the entry with the longest matched keyword for better accuracy
-                    var bestMatch = matchedEntries.OrderByDescending(m => m.MatchedKeyword.Length).First();
+                    // Try to find an exact favoriteTopic match first
+                    var favoriteTopicMatch = matchedEntries
+                        .FirstOrDefault(m => m.MatchedKeyword.Equals(favoriteTopic, StringComparison.OrdinalIgnoreCase));
+
+                    (List<string> Responses, string MatchedKeyword) bestMatch;
+
+                    if (favoriteTopicMatch.Responses != null)
+                        bestMatch = favoriteTopicMatch;
+                    else
+                        bestMatch = matchedEntries.OrderByDescending(m => m.MatchedKeyword.Length).First();
 
                     int newIndex;
                     do
@@ -1068,17 +1081,32 @@ namespace ST10442012_POE
                     lastResponses = bestMatch.Responses;
                     string response = bestMatch.Responses[newIndex];
 
+                    // Prepend intro ONLY if the matched keyword is exactly the favorite topic
+                    // Check if matched keyword is closely related to the favorite topic
                     bool prependIntro = false;
+
                     if (!string.IsNullOrEmpty(favoriteTopic))
                     {
-                        prependIntro = userInput.Contains(favoriteTopic.ToLower());
+                        // Check for exact match
+                        if (bestMatch.MatchedKeyword.Equals(favoriteTopic, StringComparison.OrdinalIgnoreCase))
+                        {
+                            prependIntro = true;
+                        }
+                        else if (ContainsKeyword(favoriteTopic, bestMatch.MatchedKeyword) || ContainsKeyword(bestMatch.MatchedKeyword, favoriteTopic))
+                        {
+                            prependIntro = true;
+                        }
                     }
 
                     if (prependIntro)
                         return $"As someone interested in {favoriteTopic}, {userName}, {response}";
                     else
                         return response;
+
                 }
+
+
+
 
 
                 return $"I’m not sure how to answer that one, {userName}. Please rephrase your question or check your spelling.\nMaybe try asking about passwords, phishing, malware or safe browsing — those are my specialties!";
@@ -1168,7 +1196,7 @@ namespace ST10442012_POE
                 }
             }
 
-            // Optional: typo tolerance (Levenshtein distance)
+           // typo tolerance (Levenshtein distance)
             int maxDistance = 2;
             foreach (var token in inputTokens)
             {
