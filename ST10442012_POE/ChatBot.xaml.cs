@@ -1,6 +1,7 @@
 ﻿using ST10442012_POE;
 using System;
 using System.Collections.ObjectModel;
+using System.Runtime.InteropServices;
 using System.Speech.Synthesis;
 using System.Threading.Tasks;
 using System.Windows;
@@ -34,19 +35,27 @@ using System.Windows.Controls;
 
 // This is the code-behind for the chatbot interface in my app. It handles everything the user does during the conversation.
 
-// I store user details like their name, cybersecurity skill level, and favorite topic, and I use a SpeechSynthesizer to let the bot speak aloud.
+// I store user details like their name, cybersecurity skill level, and favorite topic, and I use a
+
+// SpeechSynthesizer to let the bot speak aloud.
 
 // I also use an ObservableCollection to hold and display the chat messages in the UI.
 
-// At the heart of this class is a connection to my ChatbotLogic class. ChatbotLogic handles all the decision-making and responses — so when a user types something, I send it to ChatbotLogic, and it gives back the right reply.
+// At the heart of this class is a connection to my ChatbotLogic class. ChatbotLogic
 
-// The main method here is SendButton_Click. It checks what the user typed, collects their info if needed, or sends it to ChatbotLogic to process. I also handle the "exit" command to end the chat.
+// handles all the decision-making and responses — so when a user types something, I send
+
+// it to ChatbotLogic, and it gives back the right reply.
+
+// The main method here is SendButton_Click. It checks what the user typed, collects their info if
+
+// needed, or sends it to ChatbotLogic to process. I also handle the "exit" command to end the chat.
 
 // To make the chatbot feel more human, I use a method called SpeakAndType that talks and types out the bot's response with a nice animation.
 
 // I also have helper methods like AppendMessage, AppendThinking, and RemoveThinking to update the UI as messages come in.
 
-// Finally, I include navigation methods to move between other windows like Home, Quiz, Tasks, and Activity Log."
+// Finally, I include navigation methods to move between other windows like Home, Quiz, Tasks, and Activity Log.
 
 //-------- End Description --------
 
@@ -74,6 +83,7 @@ namespace ST10442012_POE
         // </summary>
         public ChatBot()
         {
+            // Initialize the window components and set up the speech synthesizer
             InitializeComponent();
             // Select a neutral voice for speech synthesis
             synthesizer.SelectVoiceByHints(VoiceGender.Neutral);
@@ -89,9 +99,7 @@ namespace ST10442012_POE
 
 
         // <summary>
-        // Handles the Send button click event.
-        // Processes user input, updates UI, manages conversation flow including user info collection,
-        // and retrieves chatbot responses asynchronously with speech and typing effects.
+        // Main method triggered when the user sends a message. It manages the conversation flow.
         // </summary>
         private async void SendButton_Click(object sender, RoutedEventArgs e)
         {
@@ -193,7 +201,7 @@ namespace ST10442012_POE
 
 
         // <summary>
-        // Adds a new message to the chat message list with appropriate styling based on sender.
+        // Adds a new message to the chat window, styling differently for user and bot.
         // </summary>
 
         private void AppendMessage(string sender, string message)
@@ -212,6 +220,10 @@ namespace ST10442012_POE
 
             ScrollToBottom();
         }
+
+
+        //Show or remove the "Thinking..." indicator.
+
 
         // <summary>
         // Adds a "Thinking..." placeholder message indicating the bot is processing.
@@ -241,6 +253,11 @@ namespace ST10442012_POE
             }
         }
 
+
+
+        // Combines speech output with a typing animation.
+
+
         // <summary>
         // Performs speech synthesis and simulates typing effect to display the chatbot's response.
         // Disables user input while speaking/typing.
@@ -263,6 +280,8 @@ namespace ST10442012_POE
             UserInputTextBox.Focus(); // puts cursor back
         }
 
+
+        // Animates typing by displaying the chatbot's message letter by letter.
 
         // <summary>
         // Simulates a typing animation by gradually adding characters to the displayed message.
@@ -314,6 +333,14 @@ namespace ST10442012_POE
                 ChatMessagesList.ScrollIntoView(ChatMessagesList.Items[ChatMessagesList.Items.Count - 1]);
             }
         }
+
+
+
+
+
+        //Clears the conversation and starts over when needed.
+
+
         // <summary>
         // Resets the chat state, clearing messages and user data,
         // and restarts the chatbot with the initial greeting.
@@ -327,6 +354,10 @@ namespace ST10442012_POE
             chatbot = new ChatbotLogic();
             SpeakAndType(chatbot.GetInitialGreeting());
         }
+
+
+       // Navigation button handlers let users switch between app windows
+
         // <summary>
         // Event handler for Home button click.
         // Cancels any ongoing speech, opens the Home window, and closes this chat window.

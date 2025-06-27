@@ -973,10 +973,10 @@ namespace ST10442012_POE
 
                     // Use topic variable here, not favoriteTopic (which is undefined)
                     string[] topicResponses = {
-                $"Awesome! I'll remember that you're interested in {topic}. You can ask any questions on cybersecurity now.",
-                $"Great! {topic} is such an important topic — You can ask any questions on cybersecurity now.",
-                $"Cool! Let's dive deeper into {topic} whenever you're ready. You can ask any questions on cybersecurity now.",
-                $"Perfect choice, {userName}! I'm ready to talk about {topic} anytime. You can ask any questions on cybersecurity now."
+                    $"Awesome! I'll remember that you're interested in {topic}. You can ask any questions on cybersecurity now.",
+                     $"Great! {topic} is such an important topic — You can ask any questions on cybersecurity now.",
+                     $"Cool! Let's dive deeper into {topic} whenever you're ready. You can ask any questions on cybersecurity now.",
+                    $"Perfect choice, {userName}! I'm ready to talk about {topic} anytime. You can ask any questions on cybersecurity now."
             };
 
                     // Select a random response from the array
@@ -1158,6 +1158,11 @@ namespace ST10442012_POE
         }
 
 
+
+
+        // The Tokenize method splits the user’s input
+
+        // into separate words so the chatbot can process and understand what the user said.
 
         // <summary>
         // Splits input string into a list of tokens (words) for processing.

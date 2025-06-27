@@ -285,12 +285,7 @@ namespace ST10442012_POE
         // provides feedback, and logs the attempt.
         // It also manages the transition to the next question or final score display.
 
-        //--------------------|| SubmitButton_Click Method ||--------------------
-        // This method handles the event when the user clicks the "Submit" button in the quiz.
-        // It checks which answer the user selected, validates the selection,
-        // compares it to the correct answer, displays feedback, logs the result,
-        // and then automatically moves to the next question after a short delay.
-        //------------------------------------------------------------------------
+        
 
         private void SubmitButton_Click(object sender, RoutedEventArgs e)
         {

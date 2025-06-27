@@ -46,7 +46,7 @@
         <!-- Show More Button -->
         <Button Grid.Row="1" Content="Show More" Width="100" Height="30" HorizontalAlignment="Center" Click="ShowMore_Click" Margin="0,0,0,10" />
 
-        <!-- Bottom Navigation Bar -->
+
         <!-- Bottom Navigation Bar -->
         <DockPanel Grid.Row="2" Background="White" Margin="0,0,0,0" VerticalAlignment="Bottom" Height="60">
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
